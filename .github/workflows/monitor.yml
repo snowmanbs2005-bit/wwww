@@ -2,7 +2,7 @@ name: TradingView Monitor
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Каждые 5 минут
+    - cron: '0 */8 * * *'  # Каждые 5 минут
   workflow_dispatch:        # Можно запустить вручную
 
 permissions:
