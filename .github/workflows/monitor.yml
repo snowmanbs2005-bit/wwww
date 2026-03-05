@@ -2,7 +2,8 @@ name: TradingView Monitor
 
 on:
   schedule:
-    - cron: '0 */8 * * *'  # Каждые 5 минут
+       - cron: '0 9 * * *'   # 12:00 по Москве (UTC+3)
+       - cron: '0 16 * * *'  # 19:00 по Москве (UTC+3) 
   workflow_dispatch:        # Можно запустить вручную
 
 permissions:
