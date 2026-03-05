@@ -1,1 +1,36 @@
+name: TradingView Monitor
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Каждые 5 минут
+  workflow_dispatch:        # Можно запустить вручную
+
+permissions:
+  contents: write           # Нужно чтобы сохранять last_seen.json
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout репозитория
+        uses: actions/checkout@v4
+
+      - name: Установка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Установка зависимостей
+        run: pip install feedparser aiohttp beautifulsoup4
+
+      - name: Запуск бота
+        run: python main.py
+
+      - name: Сохранение состояния (last_seen.json)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add last_seen.json
+          git diff --staged --quiet || git commit -m "update last_seen"
+          git push
 
